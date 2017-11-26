@@ -1,8 +1,11 @@
-let MySQLClass      = require('./src/MySQLWrapper.js');
-let program         = require('commander');
-let fs              = require('fs');
-let config          = undefined;
-let mySqlConnection = undefined;
+let MySQLClassWrapper = require('./src/MySQLWrapper.js');
+let MarkdownGenerator = require('./src/MarkdownGenerator.js');
+let program           = require('commander');
+let fs                = require('fs');
+
+let config            = undefined;
+let mySqlConnection   = undefined;
+let generator         = undefined
 
 program
   .version('1.0.0')
@@ -22,11 +25,14 @@ if (fs.existsSync(program.config)){
   process.exit(1);
 }
 
-mySqlConnection = new MySQLClass(config.dbConfig);
+mySqlConnection = new MySQLClassWrapper(config.dbConfig);
+generator = new MarkdownGenerator(config.globalSettings, config.tables);
+
+//Do the MySQL Work
 mySqlConnection.connect();
 let promiseArray = Object.keys(config.tables).map(mySqlConnection.getSchemaInformation);
 mySqlConnection.closeConnection();
 
 Promise.all(promiseArray).then((values) => {
-  
+  generator.generateMarkdown(Object.assign.apply({}, values));
 })

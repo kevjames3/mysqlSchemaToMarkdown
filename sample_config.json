@@ -1,0 +1,23 @@
+{
+  "dbConfig": {
+    "host": "localhost",
+    "port": 5984,
+    "user": "root",
+    "database" : "mysqlSchemaToMarkDown_SampleData",
+    "password": null
+  },
+  "globalSettings": {
+    "beforeTextFile": "",
+    "afterTextFile": ""
+  },
+  "tables": {
+    "house": { 
+      "beforeTextFile": "",
+      "afterTextMarkdown": "" 
+    },
+    "pet": {
+      "beforeTextFile": "",
+      "afterTextFile": ""
+    }
+  }
+}

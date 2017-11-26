@@ -1,0 +1,24 @@
+{
+  "name": "mysql_schema_to_markdown",
+  "version": "1.0.0",
+  "description": "Translate a DB Schema to Markdown, with a lot of configurability along the way",
+  "main": "index.js",
+  "dependencies": {
+    "commander": "^2.12.1",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevjames3/mysqlSchemaToMarkdown.git"
+  },
+  "author": "Kevin McIntosh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kevjames3/mysqlSchemaToMarkdown/issues"
+  },
+  "homepage": "https://github.com/kevjames3/mysqlSchemaToMarkdown#readme"
+}

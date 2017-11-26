@@ -1,7 +1,7 @@
-let MySQLClassWrapper = require('./src/MySQLWrapper.js');
-let MarkdownGenerator = require('./src/MarkdownGenerator.js');
-let program           = require('commander');
-let fs                = require('fs');
+const MySQLClassWrapper = require('./src/MySQLWrapper.js');
+const MarkdownGenerator = require('./src/MarkdownGenerator.js');
+const program           = require('commander');
+const fs                = require('fs');
 
 let config            = undefined;
 let mySqlConnection   = undefined;

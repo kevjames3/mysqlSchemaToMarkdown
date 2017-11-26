@@ -6,18 +6,20 @@
     "database" : "mysqlSchemaToMarkDown_SampleData",
     "password": null
   },
+  "outputMarkdown": "output.md",
   "globalSettings": {
-    "beforeTextFile": "",
-    "afterTextFile": ""
+    "documentName": "`mysqlSchemaToMarkDown_SampleData` Schema Description",
+    "before": "sampleMarkdown/globalBefore.md",
+    "after": "sampleMarkdown/globalAfter.md"
   },
   "tables": {
     "house": { 
-      "beforeTextFile": "",
-      "afterTextMarkdown": "" 
+      "before": "sampleMarkdown/houseBefore.md",
+      "after": "sampleMarkdown/globalAfter.md" 
     },
     "pet": {
-      "beforeTextFile": "",
-      "afterTextFile": ""
+      "before": "sampleMarkdown/petBefore.md",
+      "after": "sampleMarkdown/globalAfter.md"
     }
   }
 }

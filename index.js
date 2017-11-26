@@ -1,8 +1,8 @@
-let mysql       = require('mysql');
-let program     = require('commander');
-let fs          = require('fs');
-let process     = require('process');
-let config      = undefined;
+let MySQLClass      = require('./src/MySQLWrapper.js');
+let program         = require('commander');
+let fs              = require('fs');
+let config          = undefined;
+let mySqlConnection = undefined;
 
 program
   .version('1.0.0')
@@ -15,25 +15,18 @@ if (program.config === undefined) {
     process.exit(1);
 }
 
-//Get the config
-if(fs.existsSync(program.config)){
+if (fs.existsSync(program.config)){
   config = require(program.config);
+} else {
+  console.error('The config file does not exist!');
+  process.exit(1);
 }
 
-let connection = mysql.createConnection({
-  host     : config.dbConfig.host,
-  user     : config.dbConfig.user,
-  database : config.dbConfig.database,
-  password : config.dbConfig.password
-});
- 
-connection.connect();
+mySqlConnection = new MySQLClass(config.dbConfig);
+mySqlConnection.connect();
+let promiseArray = Object.keys(config.tables).map(mySqlConnection.getSchemaInformation);
+mySqlConnection.closeConnection();
 
-Object.keys(config.tables).forEach((value) => {
-  connection.query('SHOW FULL FIELDS FROM house;', function (error, results, fields) {
-    if (error) throw error;
-    // connected!
-  });  
+Promise.all(promiseArray).then((values) => {
+  
 })
-
-connection.end();

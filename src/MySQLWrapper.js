@@ -1,7 +1,8 @@
 'use strict';
 const mysql       = require('mysql');
-const connection  = undefined;
-const isConnectionOpen = false;
+
+let connection  = undefined;
+let isConnectionOpen = false;
 
 module.exports = class MySQLWrapper {
   constructor(dbConfig){

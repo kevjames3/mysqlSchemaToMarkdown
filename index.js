@@ -35,4 +35,5 @@ mySqlConnection.closeConnection();
 
 Promise.all(promiseArray).then((values) => {
   generator.generateMarkdown(Object.assign.apply({}, values));
+  generator.saveMarkdown(config.outputMarkdown);
 })

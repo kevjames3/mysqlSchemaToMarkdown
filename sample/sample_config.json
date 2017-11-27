@@ -9,8 +9,8 @@
   "outputMarkdown": "output.md",
   "globalSettings": {
     "documentName": "`mysqlSchemaToMarkDown_SampleData` Schema Description",
-    "before": "sampleStubMarkdown/globalBefore.md",
-    "after": "sampleStubMarkdown/globalAfter.md",
+    "before": "sample/sampleStubMarkdown/globalBefore.md",
+    "after": "sample/sampleStubMarkdown/globalAfter.md",
     "shownColumns": [
       "Field",
       "Type",
@@ -22,11 +22,11 @@
   },
   "tables": {
     "house": { 
-      "before": "sampleStubMarkdown/houseBefore.md"    
+      "before": "sample/sampleStubMarkdown/houseBefore.md"    
     },
     "pet": {
-      "before": "sampleStubMarkdown/petBefore.md",
-      "after": "sampleStubMarkdown/petAfter.md"
+      "before": "sample/sampleStubMarkdown/petBefore.md",
+      "after": "sample/sampleStubMarkdown/petAfter.md"
     }
   }
 }

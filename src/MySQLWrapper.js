@@ -1,5 +1,6 @@
 'use strict';
 const mysql       = require('mysql');
+const PORT        = 3306;
 
 let connection  = undefined;
 let isConnectionOpen = false;
@@ -12,7 +13,8 @@ module.exports = class MySQLWrapper {
       host     : dbConfig.host,
       user     : dbConfig.user,
       database : dbConfig.database,
-      password : dbConfig.password
+      password : dbConfig.password,
+      port     : ((dbConfig.port) ? dbConfig.port : PORT )
     });
   }
 

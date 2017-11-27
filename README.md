@@ -88,5 +88,11 @@ I wrote up a quick and dirty script to show off the functionality this piece of 
 
 If you are good with all of that, go to the root directory of this project and run:
 ```bash
-TBD
+./sample/generateSampleMarkdown.sh
+```
+This will generate a markdown file `output.md` to the project root directory for your review.
+
+If you want to clean up the sample data, simply run
+```bash
+./sample/cleanUpSampleSQLData.sh
 ```

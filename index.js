@@ -19,7 +19,7 @@ if (program.config === undefined) {
 }
 
 if (fs.existsSync(program.config)){
-  config = require(program.config);
+  config = JSON.parse(fs.readFileSync(program.config));
 } else {
   console.error('The config file does not exist!');
   process.exit(1);

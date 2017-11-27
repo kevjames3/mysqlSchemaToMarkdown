@@ -1,5 +1,5 @@
 # mysqlSchemaToMarkdown
-Translate a DB Schema to Markdown (GHC), with a lot of configurability along the way.  The reason why I chose to make a generator then use the ones that are out in the wild is because I needed the following functionality:
+Translate a MySQL DB Schema to Markdown (GHC), with a lot of configurability along the way.  The reason why I chose to make a generator then use the ones that are out in the wild is because I needed the following functionality:
 
 * Make it so this script can be be automated, with a CI hook or git hook if need be
 * Make it so that I can remove the columns that I don't think that are important to the documentation (example: `Collation` or `Privileges`)
@@ -23,7 +23,7 @@ A sample config file is located [here](./sample/sample_config.json).  Field desc
   * `user` [Required] _String_ - In the case of localhost, this is typically `root`
   * `database` [Required] _String_ - The database we will be reading table data from
   * `password` [Optional] _String_ - The password to the database
-* `outputMarkdown` [Required] _String_ - Where you want the markdown outputted
+* `outputMarkdown` [Required] _String_ - Where you want the markdown outputted.  Example [here](sample/output/sampleOutput.md).
 * `globalSettings` [Optional]
   * `documentName` [Optional] _String_ - What you want the title of the document to be
   * `before` [Optional] _String_ - The file path of a markdown document that you want to be prepended to the document before the tables are listed.  Example [here](sample/sampleStubMarkdown/globalBefore.md).
@@ -72,6 +72,8 @@ Usage: index [options]
 ```
 
 ## Try Me
+
+Example of what will be outputted [here](sample/output/sampleOutput.md).
 
 I wrote up a quick and dirty script to show off the functionality this piece of software.  Disclaimer, you need the following:
 

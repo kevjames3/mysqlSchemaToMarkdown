@@ -10,7 +10,15 @@
   "globalSettings": {
     "documentName": "`mysqlSchemaToMarkDown_SampleData` Schema Description",
     "before": "sampleMarkdown/globalBefore.md",
-    "after": "sampleMarkdown/globalAfter.md"
+    "after": "sampleMarkdown/globalAfter.md",
+    "shownColumns": [
+      "Field",
+      "Type",
+      "Null",
+      "Key",
+      "Default",
+      "Comment"
+    ]
   },
   "tables": {
     "house": { 

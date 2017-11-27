@@ -1,28 +1,37 @@
 const fs         = require('fs');
 const tableOrder = [
   "Field",
+  "Comment",
   "Type",
   "Collation",
   "Null",
   "Key",
   "Default",
   "Extra",
-  "Privileges",
-  "Comment"
+  "Privileges"
 ];
 
-function getMarkdownStub(filePath){
+function getMarkdownStub(stubFilePath){
   let retValue = "";
-  if (fs.existsSync(filePath)){
-    retValue = fs.readFileSync(filePath);
+  if (fs.existsSync(stubFilePath)){
+    retValue = fs.readFileSync(stubFilePath);
   } else {
-    console.warn(`Could not located file ${filePath}`);
+    console.warn(`Could not located file ${stubFilePath}`);
     retValue = "";
   }
   return retValue;
 }
 
-function generateOutputForTable(name, data, tableConfig){
+function processTableData(columnName, columnValue){
+  if (columnName == "Type" && columnValue.match(/\benum\b/i)){
+    //Types of enum are typically long, and are too aggressive in taking up the column width in the markdown
+    return columnValue.replace(/((enum\()|(',))/g, "$1<br />");
+  } else {
+    return columnValue;
+  }
+}
+
+function generateOutputForTable(name, data, tableConfig, columnListing){
   let output = [];
   output.push(`# \`${name}\`\n`);
   if(tableConfig.before){
@@ -36,14 +45,14 @@ function generateOutputForTable(name, data, tableConfig){
     if(index == 0) { //If it is the first row, let's put the header first
       //Column header section
       output.push("|");
-      tableOrder.forEach((column) => {
+      columnListing.forEach((column) => {
         output.push(` ${column} |`);
       });
       output.push("\n");
 
       //Row beneath the column header
       output.push("|");
-      for(let i = 0; i < tableOrder.length; i++){
+      for(let i = 0; i < columnListing.length; i++){
         output.push(" --- |");
       }
       output.push("\n");
@@ -51,8 +60,8 @@ function generateOutputForTable(name, data, tableConfig){
 
     //Now time for the data
     output.push("|"); 
-    tableOrder.forEach((column) => {
-      output.push(` ${row[column]} |`);
+    columnListing.forEach((column) => {
+      output.push(` ${processTableData(column, row[column])} |`);
     });
     output.push("\n");
   })
@@ -73,6 +82,13 @@ module.exports = class MarkdownGenerator {
   }
 
   generateMarkdown(tables){
+    let outputtedColumns = tableOrder;
+    if(this.globalSettings.shownColumns){
+      outputtedColumns = tableOrder.filter((val) => {
+        return this.globalSettings.shownColumns.indexOf(val) >= 0;
+      });
+    }
+    
     //Generate the header
     this.output.push("<!--- ")
     this.output.push("This output was generated automatically.  Take care when editing.")
@@ -83,7 +99,9 @@ module.exports = class MarkdownGenerator {
     this.output.push(getMarkdownStub(this.globalSettings.before));
     this.output.push("\n");
     Object.keys(tables).forEach((tableName) => {
-      this.output.push(generateOutputForTable(tableName, tables[tableName], this.tableConfigs[tableName]));
+      this.output.push(generateOutputForTable(
+        tableName, tables[tableName], this.tableConfigs[tableName], outputtedColumns
+      ));
       this.output.push("\n");
     });
     this.output.push(getMarkdownStub(this.globalSettings.after));

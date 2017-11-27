@@ -14,12 +14,11 @@
   },
   "tables": {
     "house": { 
-      "before": "sampleMarkdown/houseBefore.md",
-      "after": "sampleMarkdown/globalAfter.md" 
+      "before": "sampleMarkdown/houseBefore.md"    
     },
     "pet": {
       "before": "sampleMarkdown/petBefore.md",
-      "after": "sampleMarkdown/globalAfter.md"
+      "after": "sampleMarkdown/petAfter.md"
     }
   }
 }

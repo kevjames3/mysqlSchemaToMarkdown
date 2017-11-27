@@ -31,13 +31,19 @@ function processTableData(columnName, columnValue){
   }
 }
 
+function generateMarkdownIfFieldDefined(field){
+  let output = [];
+  if(field){
+    output.push("\n");
+    output.push(getMarkdownStub(field));
+  }
+  return output.join("");
+}
+
 function generateOutputForTable(name, data, tableConfig, columnListing){
   let output = [];
   output.push(`# \`${name}\`\n`);
-  if(tableConfig.before){
-    output.push("\n");
-    output.push(getMarkdownStub(tableConfig.before));
-  }
+  output.push(generateMarkdownIfFieldDefined(tableConfig.before));
   output.push("\n\n");
 
   //Let's do the columns
@@ -66,10 +72,7 @@ function generateOutputForTable(name, data, tableConfig, columnListing){
     output.push("\n");
   })
 
-  if(tableConfig.after){
-    output.push("\n");
-    output.push(getMarkdownStub(tableConfig.after));
-  }
+  output.push(generateMarkdownIfFieldDefined(tableConfig.after));
   output.push("\n");
   return output.join("");
 }
@@ -90,13 +93,12 @@ module.exports = class MarkdownGenerator {
     }
     
     //Generate the header
-    this.output.push("<!--- ")
-    this.output.push("This output was generated automatically.  Take care when editing.")
-    this.output.push("-->")
+    this.output.push("<!--- ");
+    this.output.push("This output was generated automatically.  Take care when editing.");
+    this.output.push("-->");
     this.output.push("\n");
     this.output.push(`# ${this.globalSettings.documentName}\n`);
-    this.output.push("\n");
-    this.output.push(getMarkdownStub(this.globalSettings.before));
+    this.output.push(generateMarkdownIfFieldDefined(this.globalSettings.before));
     this.output.push("\n");
     Object.keys(tables).forEach((tableName) => {
       this.output.push(generateOutputForTable(
@@ -104,7 +106,7 @@ module.exports = class MarkdownGenerator {
       ));
       this.output.push("\n");
     });
-    this.output.push(getMarkdownStub(this.globalSettings.after));
+    this.output.push(generateMarkdownIfFieldDefined(this.globalSettings.after));
   }
 
   saveMarkdown(outputFile){
